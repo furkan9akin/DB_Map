@@ -75,8 +75,24 @@ class DB_Map():
         plt.show()
 
     def draw_distance(self, city1, city2):
-        # İki şehir arasındaki mesafeyi göstermek için bir çizgi çizme
-        pass
+        coords1 = self.get_coordinates(city1)
+        coords2 = self.get_coordinates(city2)
+
+        if coords1 and coords2:
+            lat1, lng1 = coords1
+            lat2, lng2 = coords2
+
+            ax = plt.axes(projection=ccrs.PlateCarree())
+            ax.stock_img()
+
+            # Şehir noktalarını ve çizgiyi çiz
+            plt.plot([lng1, lng2], [lat1, lat2], color="red", marker="o", transform=ccrs.PlateCarree())
+
+            # Haritayı kaydet
+            plt.savefig("distance.png")
+            plt.close()
+        else:
+            print("Şehir'ler bulunamadı.")
 
 
 if __name__ == "__main__":
